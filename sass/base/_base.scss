@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 1rem = 10px( 10/16);
+  scroll-behavior: smooth;
+  backface-visibility: hidden;
+}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  // background: #F9FBFD;
+  background-color: #fff;
+
+
+  .container {
+    margin-left: 6.5rem;
+    overflow: hidden;
+
+    @media screen and (max-width: 650px) {
+      margin-left: 0;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  li {
+    list-style: none;
+  }
+}

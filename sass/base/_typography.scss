@@ -1,0 +1,131 @@
+// utilities //
+
+.u-center-text {
+	text-align: center !important;
+}
+
+.u-margin-bottom-big {
+	margin-bottom: 6rem !important;
+
+	@media screen and (max-width: 830px) {
+		margin-bottom: 4rem !important;
+	}
+}
+
+.u-margin-bottom-small {
+	@media screen and (max-width: 650px) {
+		margin-bottom: 3rem !important;
+	}
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: "Raleway", sans-serif;
+	font-weight: 700 !important;
+}
+
+h5 {
+	font-family: "Poppins", sans-serif;
+}
+
+// end of utilities //
+
+.heading-primary {
+	text-transform: uppercase;
+	backface-visibility: hidden;
+	margin-bottom: 5rem;
+	color: #fff;
+	font-size: 5rem;
+	text-align: center;
+}
+
+.heading-primary-main {
+	font-size: 6rem;
+	letter-spacing: 2.5rem;
+
+	@media screen and (max-width: 830px) {
+		font-size: 4.5rem;
+	}
+
+	@media screen and (max-width: 650px) {
+		font-size: 4rem;
+		letter-spacing: 2rem;
+	}
+
+	@media screen and (max-width: 500px) {
+		font-size: 3.8rem;
+		letter-spacing: 1rem;
+	}
+
+	@media screen and (max-width: 381px) {
+		font-size: 3.2rem;
+		letter-spacing: 0.8rem;
+	}
+}
+
+.heading-primary-sub {
+	font-size: 2rem;
+	margin-top: -3rem;
+	letter-spacing: 1.74rem;
+	word-spacing: 1rem;
+
+	@media screen and (max-width: 830px) {
+		font-size: 1.8rem;
+	}
+
+	@media screen and (max-width: 500px) {
+		font-size: 1.5rem;
+		letter-spacing: 0.8rem;
+	}
+
+	@media screen and (max-width: 381px) {
+		font-size: 1.3rem;
+	}
+}
+
+.heading-secondary {
+	font-size: 4.5rem;
+	text-transform: uppercase;
+	display: inline-block;
+	background-image: linear-gradient(147deg, #fe8a39 0%, #fd3838 74%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+	letter-spacing: 0.2rem;
+	transition: all 0.2s;
+	margin-top: 5rem;
+
+	@media screen and (max-width: 830px) {
+		font-size: 4rem;
+		margin-top: 6rem;
+	}
+
+	@media screen and (max-width: 500px) {
+		font-size: 3.5rem;
+	}
+
+	@media screen and (max-width: 381px) {
+		font-size: 3rem;
+		margin-top: 4rem;
+	}
+
+	// &:hover {
+	//     transform: skewY(2deg) skewX(15deg) scale(1.1);
+	//     text-shadow: 0.5rem 1rem 2rem rgba(#000, .2);
+	// }
+
+	sup {
+		font-size: 1.6rem;
+		color: #d94920;
+	}
+
+	span {
+		font-size: 3rem;
+	}
+}
+
+.heading-contagion {
+	font-size: 2.5rem;
+}

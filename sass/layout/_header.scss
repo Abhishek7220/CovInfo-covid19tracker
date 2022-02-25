@@ -1,0 +1,33 @@
+.header {
+    height: 100vh;
+    background-image: linear-gradient(to top, rgba(32, 34, 41, .6), rgba(32, 34, 41, .6)),
+        url("../assets/header-bg-crp.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    // box-shadow: 0.1rem 1rem 3rem rgba(0, 0, 0, 0.1);
+    // box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+    box-shadow: 0 0.5rem 2.5rem rgba(26, 39, 61, 0.1);
+
+
+    @media screen and (max-width: 400px) {
+        height: 80vh;
+        clip-path: polygon(0 0, 100% 0, 100% 60vh, 0 100%);
+    }
+}
+
+.hero-banner {
+    margin-left: 3rem;
+    height: 90%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    @media screen and (max-width: 500px) {
+        height: 100%;
+    }
+}

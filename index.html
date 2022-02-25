@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="description" 
+content="This is a covid-19 tracker. It shows data country-wise(using ip) and the whole world as well with Ratio of Recovery">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CovInfo: Covid-19 Tracker</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="assets/virus.svg">
+
+    <!-- Fontawesome -->
+    <link href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css" rel="stylesheet">
+
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+
+    <!-- Google-fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500;600&family=Open+Sans:wght@300;400;600&family=Poppins:wght@200;300;400;500;600;700;800&family=Raleway:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+
+        <meta name="theme-color" content="#fff">
+        <link rel="manifest" href="manifest.json">
+
+        <script>
+            //service worker supported by browser
+
+            if('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js');
+            };
+        </script>
+</head>
+
+<body>
+    <!-- Loader -->
+        <div class='spinner-wrapper'>
+            <div class="loader">
+                <svg viewBox="0 0 80 80">
+                    <circle id="test" cx="40" cy="40" r="32"></circle>
+                </svg>
+            </div>
+
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+
+            <div class="loader">
+                <svg viewBox="0 0 80 80">
+                    <rect x="8" y="8" width="64" height="64"></rect>
+                </svg>
+            </div>
+        </div>
+    <!-- End of Loader -->
+    <!-- Navigation -->
+    <div class="navbar">
+
+        <!-- SideBar -->
+        <div class="sidebar">
+            <label for="click">
+                <div class="menu-icons">
+                    <div class="menu-icons__line line1"></div>
+                    <div class="menu-icons__line line2"></div>
+                    <div class="menu-icons__line line3"></div>
+                </div>
+            </label>
+
+            <ul class="sidebar__list">
+                <li>
+                    <a href="#stats-section" class="sidebar__links stat-list" id="stats">
+                        <i class="fal fa-chart-bar"></i>
+                        <span class="sidebar__links__tooltip">Statistics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#contagion-section" class="sidebar__links cont-list" id="contagion">
+                        <i class="far fa-transporter-2"></i>
+                        <span class="sidebar__links__tooltip">Contagion</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#symptoms-section" class="sidebar__links symp-list" id="symptoms">
+                        <i class="fal fa-thermometer-full"></i>
+                        <span class="sidebar__links__tooltip">Symptoms</span></a>
+                </li>
+                <li>
+                    <a href="#prevention-section" class="sidebar__links prev-list" id="prevention">
+                        <i class="fal fa-shield-alt"></i>
+                        <span class="sidebar__links__tooltip">Prevention</span></a>
+                </li>
+                <li>
+                    <a href="#treatment-section" class="sidebar__links treat-list" id="treatment">
+                        <i class="fal fa-stethoscope"></i>
+                        <span class="sidebar__links__tooltip">Treatment</span></a>
+                </li>
+
+                <li>
+                    <a href="#vaccination-section" class="sidebar__links treat-list" id="vaccination">
+                        <i class="fal fa-syringe"></i>
+                        <span class="sidebar__links__tooltip">Vaccines</span></a>
+                </li>
+            </ul>
+
+            <div class="year">
+                <p class="copy-year-nav">2K20</p>
+            </div>
+        </div>
+        <!-- End Of SideBar -->
+
+        <!-- Navbar -->
+        <nav class="navigation">
+            <div class="navigation__header">
+                <h1 class="navigation__heading"><a href="#header">CovInfo</a></h1>
+            </div>
+
+            <ul class="navigation__list">
+                <li class="navigation__items">
+                    <a href="#stats-section" class="navigation__links stats-link">Statistics</a>
+                </li>
+                <li class="navigation__items">
+                    <a href="#contagion-section" class="navigation__links contagion-link">Contagion</a>
+                </li>
+                <li class="navigation__items">
+                    <a href="#symptoms-section" class="navigation__links symptoms-link">Symptoms</a>
+                </li>
+                <li class="navigation__items">
+                    <a href="#prevention-section" class="navigation__links prevention-link">Prevention</a>
+                </li>
+                <li class="navigation__items">
+                    <a href="#treatment-section" class="navigation__links treatment-link">Treatment</a>
+                </li>
+                <li class="navigation__items">
+                    <a href="#vaccination-section" class="navigation__links vaccination-link">Vaccines</a>
+                </li>
+            </ul>
+
+            <div class="copyright">
+                <p>Covinfo &copy; All Rights Reserved</p>
+            </div>
+        </nav>
+
+        <!-- End Of Navbar -->
+    </div>
+    <!-- End of Navigation -->
+
+
+    <!-- Main-Container -->
+
+    <div class="container">
+
+        <!-- Header-Section -->
+
+        <header class="header" id="header">
+            <div class="hero-banner">
+                <h1 class="heading-primary heading-primary-main" id="type-main">Coronavirus</h1>
+                <h2 class="heading-primary heading-primary-sub" id="type-sub">Live Tracker</h1>
+            </div>
+        </header>
+
+        <!-- End of Header-Section -->
+
+        <!-- Main-Section -->
+
+        <main>
+            <section class="section-stats" id="stats-section">
+
+                <!-- stats cards global -->
+
+                <div class="global-stats">
+                    <div class="u-center-text u-margin-bottom-big">
+                        <h2 class="heading-secondary">
+                            Global Statistics <sup>Live<i class="fad fa-circle"></i></sup>
+                        </h2>
+                    </div>
+                    <div class="stats-cards">
+                        <!-- <div class="stats-cards__cards stats-cards__tests-card">
+
+                        </div> -->
+                        <div class="stats-cards__cards stats-cards__confirmed-card u-center-text">
+                            <h4 class="card-heading heading-confirmed">Confirmed</h4>
+                            <h1 id="global-confirmed" class="card-data data-confirmed">0</h1>
+                            <h5 id="global-confirmed-new" class="card-data-new new-confirmed"><i class="fad fa-biohazard"></i></h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__recovered-card u-center-text">
+                            <h4 class="card-heading heading-recovered">Recovered</h4>
+                            <h1 id="global-recovered" class="card-data data-recovered">0</h1>
+                            <h5 id="global-recovered-new" class="card-data-new new-recovered"><i
+                                    class="fad fa-heart"></i></h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__active-card u-center-text">
+                            <h4 class="card-heading heading-active">Active</h4>
+                            <h1 id="global-active" class="card-data data-active">0</h1>
+                            <h5 id="global-active-new" class="card-data-new new-active"><i class="fad fa-disease"></i>
+                            </h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__deceased-card u-center-text">
+                            <h4 class="card-heading heading-deceased">Deceased</h4>
+                            <h1 id="global-deceased" class="card-data data-deceased">0</h1>
+                            <h5 id="global-deceased-new" class="card-data-new new-deceased"><i class="fad fa-skull"></i>
+                            </h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__critical-card u-center-text">
+                            <h4 class="card-heading heading-critical">critical</h4>
+                            <h1 id="global-critical" class="card-data data-critical">0</h1>
+                            <h5 id="global-crtical-new" class="card-data-new new-critical"><i class="fad fa-dizzy"></i>
+                            </h5>
+                        </div>
+
+                        <div class="stats-cards__cards ror-global stats-cards__ror">
+                            <h4 class="card-heading heading-ror">Ratio of Recovery <br> (Global)</h4>
+                            <div class="percent">
+                                <svg>
+                                    <circle cx="70" cy="70" r="50" class="circle-1"></circle>
+                                    <circle cx="70" cy="70" r="60" class="circle-2" id="circle-global"></circle>
+                                </svg>
+                                <div class="number">
+                                    <h2 class="ror-value-global"></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--End of stats cards global -->
+
+                <!-- Search-Bar -->
+
+                <form class="search" action="#">
+                    <i class="far fa-search search__icon"></i>
+                    <input type="text" id="search-bar" class="search__input" placeholder="Search Your Country"
+                        autocomplete="off">
+                </form>
+
+                <div class="search-country hide">
+                    <i class="fal fa-times-circle close-list"></i>
+                    <div class="country-list">
+
+                    </div>
+                </div>
+
+                <!-- End of Search Bar -->
+
+                <!-- Country-Stats -->
+
+                <div class="country-stats">
+                    <div class="u-center-text u-margin-bottom-big">
+                        <h2 class="heading-secondary heading-country">
+                            Country's Statistics <sup>Live<i class="fad fa-circle"></i></sup>
+                        </h2>
+                    </div>
+                    <div class="stats-cards">
+                        <div class="stats-cards__cards stats-cards__population-card u-center-text">
+                            <h4 class="card-heading heading-population">Population</h4>
+                            <h1 id="country-population" class="card-data data-population">0</h1>
+                            <h5 id="country-population-new" class="card-data-new new-population"><i class="fad fa-user-chart"></i></h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__tests-card u-center-text">
+                            <h4 class="card-heading heading-test">Tests Done</h4>
+                            <h1 id="country-test" class="card-data data-test">0</h1>
+                            <h5 id="country-test-new" class="card-data-new new-test"><i class="fad fa-vial"></i></h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__confirmed-card u-center-text">
+                            <h4 class="card-heading heading-confirmed">Confirmed</h4>
+                            <h1 id="country-confirmed" class="card-data data-confirmed">0</h1>
+                            <h5 id="country-confirmed-new" class="card-data-new new-confirmed"><i class="fad fa-biohazard"></i></h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__recovered-card u-center-text">
+                            <h4 class="card-heading heading-recovered">Recovered</h5>
+                            <h1 id="country-recovered" class="card-data data-recovered">0</h1>
+                            <h5 id="country-recovered-new" class="card-data-new new-recovered"><i
+                                    class="fad fa-heart"></i></h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__active-card u-center-text">
+                            <h4 class="card-heading heading-active">Active</h4>
+                            <h1 id="country-active" class="card-data data-active">0</h1>
+                            <h5 id="country-active-new" class="card-data-new new-active"><i class="fad fa-disease"></i>
+                            </h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__deceased-card u-center-text">
+                            <h4 class="card-heading heading-deceased">Deceased</h4>
+                            <h1 id="country-deceased" class="card-data data-deceased">0</h1>
+                            <h5 id="country-deceased-new" class="card-data-new new-deceased"><i class="fad fa-skull"></i></h5>
+                        </div>
+
+                        <div class="stats-cards__cards stats-cards__critical-card u-center-text">
+                            <h4 class="card-heading heading-critical">critical</h4>
+                            <h1 id="country-critical" class="card-data data-critical">0</h1>
+                            <h5 id="country-crtical-new" class="card-data-new new-critical"><i class="fad fa-dizzy"></i>
+                            </h5>
+                        </div>
+
+                        <div class="stats-cards__cards ror-country stats-cards__ror">
+                            <h4 class="card-heading heading-ror" id="heading-ror-country">Rate of Recovery</h4>
+                            <div class="percent">
+                                <svg>
+                                    <circle cx="70" cy="70" r="50" class="circle-1"></circle>
+                                    <circle cx="70" cy="70" r="60" class="circle-2" id="circle-country"></circle>
+                                </svg>
+                                <div class="number">
+                                    <h2 class="ror-value-country"></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="hrule">
+
+                <!-- End of Country Stats -->
+
+            </section>
+
+            <!-- Stats-Section -->
+
+            <!-- Contagion Section -->
+
+            <section class="section-contagion" id="contagion-section">
+                <div class="u-center-text u-margin-bottom-big">
+                    <h2 class="heading-secondary">Contagion<br><span>(Mode of
+                            Transmission)
+                        </span>
+                    </h2>
+                </div>
+
+                <div class="contagion-cards-container">
+
+                    <div class="contagion-card contagion-card__air u-center-text">
+                        <img src="./assets/contagion/contagion-air-edited.jpg" alt="Sneezing man"
+                            class="contagion-card__img">
+                        <h5 class="contagion-card__caption">Through Air</h5>
+                        <p class="contagion-card__caption-para">The virus can spread from an infected person's mouth or
+                            nose in small liquid particles when they cough, sneeze, speak, sing or breathe heavily.</p>
+                    </div>
+
+                    <div class="contagion-card contagion-card__hand u-center-text">
+                        <img src="./assets/contagion/contagion-hand.jpg" alt="Sneezing man" class="contagion-card__img">
+                        <h5 class="contagion-card__caption">Hands Contact</h5>
+                        <p class="contagion-card__caption-para">People may become infected by touching these
+                            contaminated surfaces, then touching their eyes, noses or mouths without having cleaned
+                            their hands first.</p>
+                    </div>
+
+                    <div class="contagion-card contagion-card__object u-center-text">
+                        <img src="./assets/contagion/contagion-object.jpg" alt="Sneezing man"
+                            class="contagion-card__img">
+                        <h5 class="contagion-card__caption">Touching objects</h5>
+                        <p class="contagion-card__caption-para">The disease can spread from person to person through
+                            small droplets from the nose or mouth. These droplets land on objects and surfaces around
+                            the person.</p>
+                    </div>
+                </div>
+
+                <hr class="hrule">
+            </section>
+            <!-- End of Contagion Section -->
+
+            <!-- Symptoms section -->
+
+            <section class="section-symptoms" id="symptoms-section">
+                <div class="u-center-text u-margin-bottom-big">
+                    <h2 class="heading-secondary u-margin-bottom-small">Symptoms of Covid-19</h2>
+                </div>
+
+                <br>
+
+                <div class="blog-slider">
+                    <div class="blog-slider__wrp swiper-wrapper">
+                        <div class="blog-slider__item swiper-slide">
+                            <div class="blog-slider__img">
+                                <img src="assets/symptoms/common.jpg" alt="common symptoms">
+                            </div>
+                            <div class="blog-slider__content">
+                                <div class="blog-slider__title">Common Symptoms</div>
+                                <div class="blog-slider__text">
+                                    <ul>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>Fever</li>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>Dry Cough</li>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>Tiredness</li>
+                                    </ul>
+                                    <div class="blog-slider__info-sym">People with mild symptoms who are otherwise
+                                        healthy should manage their symptoms at home.</div>
+                                </div>
+                                <a href="https://www.who.int/news-room/q-a-detail/coronavirus-disease-covid-19"
+                                    target="_blank" class="blog-slider__button">Read more on WHO</a>
+                            </div>
+                        </div>
+
+                        <div class="blog-slider__item swiper-slide">
+                            <div class="blog-slider__img">
+                                <img src="assets/symptoms/less-common.jpg" alt="less-common">
+                            </div>
+                            <div class="blog-slider__content">
+                                <div class="blog-slider__title">Less Common Symptoms</div>
+                                <div class="blog-slider__text">
+                                    <ul>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>Aches and Pains
+                                        </li>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>Sore Throat &
+                                            Headache</li>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>Diarrhoea</li>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>Conjuctivitis
+                                        </li>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>Loss of Taste or
+                                            Smell
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a href="https://www.who.int/news-room/q-a-detail/coronavirus-disease-covid-19"
+                                    target="_blank" class="blog-slider__button">Read more on WHO</a>
+                            </div>
+                        </div>
+
+                        <div class="blog-slider__item swiper-slide">
+                            <div class="blog-slider__img">
+                                <img src="assets/symptoms/serious.jpg" alt="serious">
+                            </div>
+                            <div class="blog-slider__content">
+                                <div class="blog-slider__title">Serious Symptoms</div>
+                                <div class="blog-slider__text">
+                                    <ul>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>Difficulty
+                                            Breathing or Shortness of Breath
+                                        </li>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>
+                                            Chest pain or Pressure
+                                        </li>
+                                        <li class="blog-slider__sym-item"><i
+                                                class="fas fa-check-circle blog-slider__check-sym"></i>
+                                            Loss of Speech or Movement
+                                        </li>
+                                    </ul>
+                                    <div class="blog-slider__info-sym">Seek immediate medical attention if you have
+                                        serious symptoms.</div>
+                                </div>
+                                <a href="https://www.who.int/news-room/q-a-detail/coronavirus-disease-covid-19"
+                                    target="_blank" class="blog-slider__button">Read more on WHO</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="blog-slider__pagination"></div>
+                </div>
+
+                <hr class="hrule">
+            </section>
+            <!-- End of Symptoms section -->
+
+            <!-- Prevention Section -->
+            <section class="section-prevention" id="prevention-section">
+                <div class="u-center-text u-margin-bottom-big">
+                    <h2 class="heading-secondary">Prevention Protocols</h2>
+                </div>
+
+                <ul>
+                    <li>
+                        <div>
+                            <time>Wear A Mask,Save Lives!</time>
+                            <div class="prevention-img-box">
+                                <video autoplay muted loop>
+                                    <source src="assets/prevention/mask.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="scientist">
+                                <h1>Wear a mask when physical distancing is not possible.</h1>
+                                <span></span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div>
+                            <time>Wash Your Hands Frequently</time>
+                            <div class="prevention-img-box">
+                                <video autoplay muted loop>
+                                    <source src="assets/prevention/clean-hand.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>                                 
+                            </div>
+                            <div class="scientist">
+                                <h1>Clean your hands often. Use soap and water, or an alcohol-based hand rub.</h1>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div>
+                            <time>Social Distancing</time>
+                            <div class="prevention-img-box">
+                                <video autoplay muted loop>
+                                    <source src="assets/prevention/social-distancing.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video> 
+                            </div>
+                            <div class="scientist">
+                                <h1>Maintain a Minimum Distance of 6-feet. Say Namaste🙏</h1>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div>
+                            <time>Avoid Touching Face</time>
+                            <div class="prevention-img-box">
+                                <video autoplay muted loop>
+                                    <source src="assets/prevention/sneezing.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video> 
+                            </div>
+                            <div class="scientist">
+                                <h1>Cover your Nose and Mouth with bent Elbow while Coughing or Sneezing.</h1>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div>
+                            <time>Stay At Home</time>
+                            <div class="prevention-img-box">
+                                <video autoplay muted loop>
+                                    <source src="assets/prevention/home.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video> 
+                            </div>
+                            <div class="scientist">
+                                <h1>Stay Home if you feel Unwell.</h1>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div>
+                            <time>Visit Your Doctor</time>
+                            <div class="prevention-img-box">
+                                <video autoplay muted loop>
+                                    <source src="assets/prevention/doctor.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video> 
+                            </div>
+                            <div class="scientist">
+                                <h1>If you have Fever, Cough and difficulty Breathing, seek medical attention</h1>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <hr class="hrule">
+            </section>
+            <!-- End of Prevention Section -->
+
+
+            <!-- Treatment Section -->
+            <section class="section-treatment" id="treatment-section">
+                <div class="u-center-text u-margin-bottom-big">
+                    <h2 class="heading-secondary">Treatment for Covid-19</h2>
+                </div>
+
+                <div class="section-treatment__card">
+
+                    <video autoplay muted loop class="section-treatment__card__img">
+                    <source src="assets/meditation.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                    </video>
+
+                    <h3 class="section-treatment__card__heading">There is a wide range of <span>Vaccines</span> for Covid-19 are Available now.
+                      <br><br>All Vaccines are Effective in preventing the worst case scenario.
+                      <br><br>So, Without comparing any Vaccines with others get Vaccinated whenever possible.
+                      <br><br><span>Self-care</span> is
+                        best know treatment because Prevention Is Always Better Than Cure.</h3>
+                    <ul class="section-treatment__card__list">
+                      <li class="section-treatment__card__items item1"><i class="fas fa-badge-check bcheck"></i>Remember, Efficacy is a different thing from Efficiency of a Vaccines. So, do not compare them.</li>
+                        <li class="section-treatment__card__items item1"><i class="fas fa-badge-check bcheck"></i>If you
+                            feel Sick you should rest, Drink plenty
+                            of fluid, and Eat Nutritious food.</li>
+                        <li class="section-treatment__card__items item1"><i class="fas fa-badge-check bcheck"></i>Stay
+                            in a Seperate room and use a dedicated
+                            Bathroom if possible</li>
+                        <li class="section-treatment__card__items item1"><i class="fas fa-badge-check bcheck"></i>Clean
+                            and Disinfect Frequently touched sruface.
+                        </li>
+                    </ul>
+
+                    <div class="section-treatment__card__text">It is normal to feel Sad😔, Stressed😟 or Confused😕
+                        during a crises. <br> Meditation, Talking to people you Trust, such as Friends and Family can
+                        help💕
+                    </div>
+                </div>
+                <hr class="hrule">
+            </section>
+            <!-- End of Treatment Section -->
+
+            <!-- Vaccines Section -->
+            <section class="section-vaccination" id="vaccination-section">
+                <div class="u-center-text u-margin-bottom-big">
+                    <h2 class="heading-secondary">Vaccines for Covid-19</h2>
+                </div>
+
+                <div class="section-vaccine__card">
+                    <div class="approved-part">
+                      <div class="vaccine-part-1">
+                        <div class="vaccine-heading-card">
+                                <h3 class="heading-vaccine">Approved Vaccines</h3>
+                                <p class="para-vaccine">Vaccines use worldwide</p>
+                        </div>
+                        <div class="approved-part__card-holder">
+                                <div class="approved-part__card card-1">
+                                    <div class="round-vaccine round-vaccine-1">
+                                    <i class="fad fa-badge-check"></i>
+                                    </div>
+                                    <h3 class="vaccine-data">24</h3>
+                                    <p class="vaccine-text">Approved Vaccines</p>
+                                </div>
+                                <div class="approved-part__card card-2">
+                                    <div class="round-vaccine round-vaccine-2">
+                                    <i class="fad fa-globe-asia"></i>
+                                    </div>
+                                    <h3 class="vaccine-data">194</h3>
+                                    <p class="vaccine-text">Countries with Approved Vaccines</p>
+                                </div>
+                                <div class="approved-part__card card-3">
+                                    <div class="round-vaccine round-vaccine-3">
+                                    <i class="fad fa-stethoscope"></i>
+                                    </div>
+                                    <h3 class="vaccine-data">8</h3>
+                                    <div class="vaccine-text">WHO's <u>EUL</u> Vaccines
+                                        <span class="tooltip">Emergency Use Listed</span>
+                                    </div>
+                                </div>
+                        </div>
+                      </div>
+
+                      <div class="vaccine-part-1 vaccine-part-2">
+                        <div class="vaccine-heading-card">
+                                <h3 class="heading-vaccine">Trial Phase Vaccines</h3>
+                                <p class="para-vaccine">Vaccine Candidates in clinical trials</p>
+                        </div>
+
+                        <div class="approved-part__card-holder">
+                                <div class="approved-part__card card-1">
+                                    <div class="round-vaccine round-vaccine-1">
+                                    <i class="fad fa-poll-people"></i>
+                                    </div>
+                                    <h3 class="vaccine-data">159</h3>
+                                    <p class="vaccine-text">Vaccine Candidates
+                                    </p>
+                                </div>
+                                <div class="approved-part__card card-2">
+                                    <div class="round-vaccine round-vaccine-2">
+                                    <i class="fad fa-syringe"></i>
+                                    </div>
+                                    <h3 class="vaccine-data">515</h3>
+                                    <p class="vaccine-text">Vaccine Trials</p>
+                                </div>
+                                <div class="approved-part__card card-3">
+                                    <div class="round-vaccine round-vaccine-3">
+                                    <i class="fad fa-notes-medical"></i>
+                                    </div>
+                                    <h3 class="vaccine-data">62</h3>
+                                    <div class="vaccine-text">Countries with Vaccine Trials
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="vaccine-phases-container">
+                            <div class="vaccine-phases phase-1">
+                                <div class="phase-quantity">
+                                    <h3 class="heading-vaccine-number">30  <br> Vaccines</h3>
+                                </div>
+                                <div class="phase-name">
+                                    Phase 1
+                                </div>
+                            </div>
+                            <div class="vaccine-phases phase-2"><div class="phase-quantity">
+                                    <h3 class="heading-vaccine-number">57  <br> Vaccines</h3>
+                                </div>
+                                <div class="phase-name">
+                                    Phase 2
+                                </div></div>
+                            <div class="vaccine-phases phase-3"><div class="phase-quantity">
+                                    <h3 class="heading-vaccine-number">56  <br> Vaccines</h3>
+                                </div>
+                                <div class="phase-name">
+                                    Phase 3
+                                </div></div>
+                            <div class="vaccine-phases phase-4"><div class="phase-quantity">
+                                        <h3 class="heading-vaccine-number">24  <br> Vaccines</h3>
+                                </div>
+                                <div class="phase-name">
+                                    Approved <i class="fad fa-shield-check" style="color: #1D7272;"></i>
+                                </div></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- End of vaccine section -->
+
+            <!-- footer section -->
+
+            <footer class="section-footer">
+                <hr class="footer-rule">
+                <div class="creator-part">
+                    <div class="text-app">
+                        <h3>Covid-19 Tracker</h3>
+                    </div>
+                    <!-- <div class="socialicons">
+                        <a href="https://www.instagram.com/officiallyadarsh/" target="_blank"><i
+                                class="fab fa-instagram social instagram"></i></a>
+
+                        <a href="https://twitter.com/ideallyAdarsh" target="_blank"><i
+                                class="fab fa-twitter-square social twitter"></i></a>
+
+                        <a href="https://www.linkedin.com/in/adarsh-pratap-singh-338928194/" target="_blank"><i
+                                class="fab fab fa-linkedin social linkedin"></i></a>
+
+                        <a href="https://github.com/adarshcodes" target="_blank"><i
+                                class="fab fa-github-square social github"></i></a>
+                    </div> -->
+                    <div class="copyright-text">
+                        <p>Coded With <i class="fad fa-heart heart-footer"></i></p>
+                        <p>Copyright &copy; <span class="copy-year"></span>. Covid-19 Tracker.</p>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- End of footer section -->
+    </div>
+    <!-- End of Main-Container -->
+
+    <!--###### Scripts-embedding ######-->
+
+    <!-- Loader -->
+    <script>
+        let spinnerWrapper = document.querySelector('.spinner-wrapper');
+
+        window.addEventListener('load', function () {
+            // spinnerWrapper.style.display = 'none';
+            spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+        });
+    </script>
+
+    <!-- Typewriter -->
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+
+    <!-- Counter -->
+    <script src="scripts/countUp.umd.js"></script>
+
+    <!-- Swiper and JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+
+    <!-- js-files -->
+    <script src="scripts/microinterections.js"></script>
+    <script src="scripts/countries.js"></script>
+    <script src="scripts/index.js"></script>
+    
+</body>
+
+</html>
