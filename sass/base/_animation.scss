@@ -1,0 +1,29 @@
+//####### Animation for the Country List Pop-up ######//
+
+.slideOut {
+    animation: slideList 0.5s ease-in-out;
+}
+
+@keyframes slideList {
+    0% {
+        opacity: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 1;
+        height: 20rem;
+    }
+}
+
+// Heading Live Text Animation
+
+  @keyframes super-pulse {
+      25% {
+          transform: scale(1.2);
+      }
+
+      75% {
+          transform: scale(0.8);
+      }
+  }

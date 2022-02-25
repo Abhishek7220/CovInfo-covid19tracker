@@ -1,0 +1,33 @@
+{
+"short_name": "CovInfo",
+"name": "CovInfo",
+"icons": [
+{
+	"src": "./assets/cov.png",
+	"type": "image/png",
+	"sizes": "144x144"
+},
+
+{
+	"src": "./assets/cov@1.5x.png",
+	"type": "image/png",
+	"sizes": "401x410"
+},
+{
+	"src": "./assets/cov@2x.png",
+	"type": "image/png",
+	"sizes": "534x534"
+},
+
+{
+	"src": "./assets/cov@3x.png",
+	"type": "image/png",
+	"sizes": "801x810"
+}
+],
+
+"start_url": "index.html",
+"background_color": "#fff",
+"display": "standalone",
+"theme_color": "#fff"
+}

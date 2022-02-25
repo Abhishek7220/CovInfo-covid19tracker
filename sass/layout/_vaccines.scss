@@ -1,0 +1,227 @@
+.section-vaccination {
+	padding: 8rem 5rem 5rem 5rem;
+
+	@media screen and (max-width: 600px) {
+		padding: 3rem 5rem 5rem 5rem;
+	}
+
+	@media screen and (max-width: 450px) {
+		padding: 0rem 1rem 5rem 1rem;
+	}
+
+	.section-vaccine__card {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.approved-part {
+			width: 80%;
+			box-shadow: 0 0.5rem 2.5rem rgba(26, 39, 61, 0.1);
+			padding: 5rem;
+
+			@media screen and (max-width: 992px) {
+				width: 100%;
+			}
+
+			@media screen and (max-width: 520px) {
+				padding: 5rem 1rem;
+			}
+
+			.vaccine-heading-card {
+				margin-left: 1.5rem;
+				margin-bottom: 3rem;
+				.heading-vaccine {
+					font-size: 2.8rem;
+					color: #3e3e3e;
+					display: inline-block;
+				}
+
+				.para-vaccine {
+					margin-top: 0.5rem;
+					font-size: 1.8rem;
+					color: #6e6e6e;
+				}
+			}
+
+			&__card-holder {
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			&__card {
+				flex: 1 0 23rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: center;
+				padding: 2rem;
+				width: 30%;
+				height: 26rem;
+				box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+				color: #fff;
+				border-radius: 1rem;
+				transition: all 0.2s;
+
+				&:hover {
+					transform: translateY(-0.2rem);
+					box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+				}
+			}
+
+			.card-1 {
+				background-color: #244d71;
+				margin: 1.5rem;
+			}
+
+			.card-2 {
+				background-color: #ffb4a9;
+				margin: 1.5rem;
+			}
+
+			.card-3 {
+				background-color: #63d2b4;
+				margin: 1.5rem;
+			}
+
+			.round-vaccine {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 3.5rem;
+				width: 8rem;
+				height: 8rem;
+				border-radius: 100%;
+				margin: 1rem 0;
+			}
+
+			.round-vaccine-1 {
+				background-color: #193d5d;
+			}
+
+			.round-vaccine-2 {
+				background-color: #f0a59a;
+			}
+
+			.round-vaccine-3 {
+				background-color: #4dbb9d;
+			}
+
+			margin-bottom: 1rem;
+		}
+
+		.vaccine-data {
+			font-size: 5rem;
+		}
+
+		.tooltip {
+			visibility: hidden;
+			font-size: 1.4rem;
+			width: 15rem;
+			background-color: black;
+			color: #fff;
+			text-align: center;
+			border-radius: 6px;
+			padding: 5px 0;
+
+			/* Position the tooltip */
+			position: absolute;
+			top: 3rem;
+			left: 7rem;
+			z-index: 1;
+			transition: all 0.2s;
+		}
+
+		.vaccine-text {
+			position: relative;
+			display: inline-block;
+			margin-top: 1rem;
+			text-align: center;
+			font-size: 2rem;
+			line-height: 2.5rem;
+		}
+
+		.vaccine-text:hover .tooltip {
+			visibility: visible;
+		}
+
+		.vaccine-part-2 {
+			margin-top: 5rem;
+		}
+
+		.vaccine-phases-container {
+			margin-top: 6rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-left: 1.5rem;
+			text-align: center;
+			padding: 0 3rem 0 0;
+
+			.vaccine-phases {
+				width: 100%;
+				padding: 2rem 0;
+				transform: skewX(-15deg);
+			}
+
+			.phase-1 .phase-quantity {
+				padding: 1rem;
+				background-color: #7b95b5;
+			}
+
+			.phase-2 .phase-quantity {
+				padding: 1rem;
+				background-color: #3c5881;
+			}
+
+			.phase-3 .phase-quantity {
+				padding: 1rem;
+				background-color: #20406f;
+			}
+
+			.phase-4 .phase-quantity {
+				padding: 1rem;
+				background-color: #1d7272;
+			}
+
+			.heading-vaccine-number {
+				font-size: 2rem;
+				color: #fff;
+				transform: skewX(15deg);
+
+				@media screen and (max-width: 812px) {
+					font-size: 1.5rem;
+				}
+
+				@media screen and (max-width: 590px) {
+					font-size: 1.2rem;
+				}
+
+				@media screen and (max-width: 355px) {
+					font-size: 1rem;
+				}
+			}
+
+			.phase-name {
+				margin-top: 1rem;
+				color: #003483;
+				transform: skewX(15deg);
+				font-size: 2.2rem;
+
+				@media screen and (max-width: 812px) {
+					font-size: 1.5rem;
+				}
+
+				@media screen and (max-width: 590px) {
+					font-size: 1.2rem;
+				}
+
+				@media screen and (max-width: 355px) {
+					font-size: 1rem;
+				}
+			}
+		}
+	}
+}
